@@ -7,6 +7,7 @@ import { LocalAuthGuard } from './gaurds/local-auth.guard';
 import { RequestWithUser } from './interfaces/requestWithUser';
 import { ApiBody } from '@nestjs/swagger';
 import { SendEmailDto } from 'src/user/dto/send-email.dto';
+import { VertifyEmailDto } from 'src/user/dto/vertify-email.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -33,6 +34,11 @@ export class AuthController {
   @Post("/send/email")
   async sendEmail(@Body() sendEmailDto:SendEmailDto):Promise<void>{
     return await this.authService.emailVertify(sendEmailDto.email);
+  }
+
+  @Post("/vertify/email")
+  async vertifyEmail(@Body() vertifyEmailDto:VertifyEmailDto):Promise<boolean>{
+    return await this.authService.confirmEmail(vertifyEmailDto);
   }
 
 
